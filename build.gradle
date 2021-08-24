@@ -1,0 +1,37 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'com.google.cloud.tools.jib' version '3.1.2'
+}
+
+group = 'com.alden'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '15'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jib {
+    from {
+        image = "adoptopenjdk/openjdk15:x86_64-alpine-jre-15.0.2_7"
+    }
+    to {
+        image = "sepiro2000/hello-jib"
+        tags = ["apm_enabled"]
+    }
+    container {
+        jvmFlags = ["-Xms128m", "-Xmx128m", "-javaagent:/newrelic/newrelic.jar"]
+    }
+}
