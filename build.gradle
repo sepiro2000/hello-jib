@@ -29,7 +29,7 @@ jib {
     }
     to {
         image = "sepiro2000/hello-jib"
-        tags = ["apm_enabled"]
+        tags = ["github_actions"]
     }
     container {
         jvmFlags = ["-Xms128m", "-Xmx128m", "-javaagent:/newrelic/newrelic.jar"]
